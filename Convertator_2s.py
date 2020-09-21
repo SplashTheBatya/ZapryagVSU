@@ -2,8 +2,6 @@ from datetime import datetime
 import time
 import math
 from textwrap import wrap
-import bitstring
-from bitstring import Bits
 
 hexadecimal_bin_dictionary = {'0000': '0', '0001': '1', '0010': '2', '0011': '3', '0100': '4', '0101': '5', '0110': '6',
                               '0111': '7', '1000': '8', '1001': '9', '1010': 'A', '1011': 'B', '1100': 'C', '1101': 'D',
@@ -55,9 +53,7 @@ def negative_dec_to_bin_convert(decimal_number: float):
     integer_binary_part = integer_binary_part.replace('2', '0')
 
     integer_binary_part = [x for x in integer_binary_part]
-    #print(integer_binary_part)
     integer_binary_part.reverse()
-    #print(integer_binary_part)
     buff = 1
     for bin_array_iter in range(len(integer_binary_part)):
         if int(integer_binary_part[bin_array_iter]) + buff == 2:
@@ -67,7 +63,6 @@ def negative_dec_to_bin_convert(decimal_number: float):
             integer_binary_part[bin_array_iter] = str(int(integer_binary_part[bin_array_iter]) + buff)
             buff = 0
     integer_binary_part.reverse()
-    #print(integer_binary_part)
     string_buffer = ''
     for str_iter in range(len(integer_binary_part)):
         string_buffer += integer_binary_part[str_iter]
@@ -145,7 +140,6 @@ def neg_hex_to_decimal_convert(hexadecimal_num: str):
             binary_2s_int_part[bin_array_iter] = str(int(binary_2s_int_part[bin_array_iter]) - buff)
             buff = 0
     binary_2s_int_part.reverse()
-    #print(binary_2s_int_part)
     binary_int_part = ''
     for str_iter in range(len(binary_2s_int_part)):
         binary_int_part += binary_2s_int_part[str_iter]
@@ -181,31 +175,6 @@ def neg_hex_to_decimal_convert(hexadecimal_num: str):
     return decimal_number
 
 
-# def positive_bin_to_hex_convert(binary_number: str):
-#     integer_binary_part = binary_number.split('.')[0]
-#     non_integer_binary_part = binary_number.split('.')[1]
-#
-#     while len(integer_binary_part) % 4 != 0:
-#         integer_binary_part = '0' + integer_binary_part
-#     integer_part_split = wrap(integer_binary_part, 4)
-#
-#     while len(non_integer_binary_part) % 4 != 0:
-#         non_integer_binary_part += '0'
-#     non_integer_part_split = wrap(non_integer_binary_part, 4)
-#
-#     hexadecimal_num = ''
-#     for iter in integer_part_split:
-#         for bin_iter in hexadecimal_bin_dictionary:
-#             if iter == bin_iter:
-#                 hexadecimal_num += hexadecimal_bin_dictionary[bin_iter]
-#     hexadecimal_num += '.'
-#     for iter in non_integer_part_split:
-#         for bin_iter in hexadecimal_bin_dictionary:
-#             if iter == bin_iter:
-#                 hexadecimal_num += hexadecimal_bin_dictionary[bin_iter]
-#     return hexadecimal_num
-
-
 def positive_hex_to_dec_convert(hexadecimal_num: str):
     hexadecimal_int = hexadecimal_num.split('.')[0]
     hexadecimal_non_int = hexadecimal_num.split('.')[1]
@@ -220,8 +189,6 @@ def positive_hex_to_dec_convert(hexadecimal_num: str):
                 int_part_exponent_index -= 1
 
     none_int_part_exponent_index = len(hexadecimal_non_int)
-    # print(none_int_part_exponent_index)
-    # print('--------------------------------------')
     none_int_decimal_part = 0
     for iter in hexadecimal_non_int:
         for non_int_hex_iter in hexadecimal_decimal_dictionary:
@@ -235,12 +202,9 @@ def positive_hex_to_dec_convert(hexadecimal_num: str):
     return str(decimal_number_result)
 
 
-
-# number_to_convert_pos = float(input('Input some + '))
 number_to_convert_neg = float(input('Input some - '))
 number_to_convert_pos = float(input('Input some + '))
 
-# print(positive_dec_to_bin_convert(number_to_convert_pos))
 print(negative_dec_to_bin_convert(number_to_convert_neg))
 print(bin_to_hex_convert(negative_dec_to_bin_convert(number_to_convert_neg)))
 print(neg_hex_to_decimal_convert(bin_to_hex_convert(negative_dec_to_bin_convert(number_to_convert_neg))))
