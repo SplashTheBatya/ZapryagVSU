@@ -126,7 +126,7 @@ def neg_hex_to_decimal_convert(hexadecimal_num: str):
     while binary_2s_non_int_part[-1] == '0':
         binary_2s_non_int_part = binary_2s_non_int_part[:-1]
 
-    print(binary_2s_int_part + '.' + binary_2s_non_int_part)
+    #print(binary_2s_int_part + '.' + binary_2s_non_int_part)
 
     binary_2s_int_part = [x for x in binary_2s_int_part]
     binary_2s_int_part.reverse()
@@ -168,10 +168,7 @@ def neg_hex_to_decimal_convert(hexadecimal_num: str):
         exponent += 1
 
     decimal_number = decimal_int_part + decimal_non_int_part
-    if sign_indicator == '1':
-        decimal_number = float('-' + str(decimal_number))
-    if sign_indicator == '0':
-        pass
+    decimal_number = float('-' + str(decimal_number))
     return decimal_number
 
 
@@ -202,14 +199,20 @@ def positive_hex_to_dec_convert(hexadecimal_num: str):
     return str(decimal_number_result)
 
 
-number_to_convert_neg = float(input('Input some - '))
-number_to_convert_pos = float(input('Input some + '))
+data_file = open('text.txt', 'r')
+data = data_file.read()
+data_list = data.split(' ')
+print(data_list)
 
-print(negative_dec_to_bin_convert(number_to_convert_neg))
-print(bin_to_hex_convert(negative_dec_to_bin_convert(number_to_convert_neg)))
-print(neg_hex_to_decimal_convert(bin_to_hex_convert(negative_dec_to_bin_convert(number_to_convert_neg))))
-print('----------------------------------')
-print(positive_dec_to_bin_convert(number_to_convert_pos))
-print(bin_to_hex_convert(positive_dec_to_bin_convert(number_to_convert_pos)))
-print(positive_hex_to_dec_convert(bin_to_hex_convert(positive_dec_to_bin_convert(number_to_convert_pos))))
+start_time = datetime.now()
+data_sum = 0
+
+for iter in data_list:
+    if iter[0] == '-':
+        data_sum += float(neg_hex_to_decimal_convert(bin_to_hex_convert(negative_dec_to_bin_convert(float(iter)))))
+    else:
+        data_sum += float(positive_hex_to_dec_convert(bin_to_hex_convert(positive_dec_to_bin_convert(float(iter)))))
+finish_time = datetime.now() - start_time
+print(str(data_sum))
+print(finish_time)
 
