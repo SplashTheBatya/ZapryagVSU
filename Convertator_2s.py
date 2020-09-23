@@ -35,6 +35,31 @@ def positive_dec_to_bin_convert(decimal_number: float):
     return binary_number
 
 
+def negative_dec_to_bin(decimal_number: float):
+    decimal_number = str(decimal_number)[1:]
+    decimal_number = float(decimal_number)
+    integer_part = math.trunc(decimal_number)
+    non_integer_part = decimal_number - integer_part
+
+    integer_binary_part = ''
+    while integer_part > 0:
+        integer_binary_part = str(integer_part % 2) + integer_binary_part
+        integer_part = integer_part // 2
+    while len(integer_binary_part) < 8:
+        integer_binary_part = '0' + integer_binary_part
+
+    non_integer_binary_part = ''
+    while non_integer_part > 0:
+        non_integer_part = non_integer_part * 2
+        buff = math.trunc(non_integer_part)
+        if buff > 0:
+            non_integer_binary_part += str(1)
+            non_integer_part -= 1
+        else:
+            non_integer_binary_part += str(0)
+    binary_number = integer_binary_part + '.' + non_integer_binary_part
+    return binary_number
+
 def negative_dec_to_bin_convert(decimal_number: float):
     decimal_number = str(decimal_number)[1:]
     decimal_number = float(decimal_number)
@@ -123,8 +148,11 @@ def neg_hex_to_decimal_convert(hexadecimal_num: str):
         for key_dict, data_dict in hexadecimal_bin_dictionary.items():
             if iter_str == data_dict:
                 binary_2s_non_int_part += str(key_dict)
-    while binary_2s_non_int_part[-1] == '0':
-        binary_2s_non_int_part = binary_2s_non_int_part[:-1]
+    if binary_2s_non_int_part == '':
+        pass
+    else:
+        while binary_2s_non_int_part[-1] == '0':
+            binary_2s_non_int_part = binary_2s_non_int_part[:-1]
 
     #print(binary_2s_int_part + '.' + binary_2s_non_int_part)
 
@@ -199,20 +227,25 @@ def positive_hex_to_dec_convert(hexadecimal_num: str):
     return str(decimal_number_result)
 
 
-data_file = open('text.txt', 'r')
+data_file = open('dataTest.txt', 'r')
 data = data_file.read()
-data_list = data.split(' ')
+data_list = data.split('\n')
 print(data_list)
 
 start_time = datetime.now()
+data_sum_coverted = 0
 data_sum = 0
-
+data_list = [x for x in data_list if x != '']
 for iter in data_list:
     if iter[0] == '-':
-        data_sum += float(neg_hex_to_decimal_convert(bin_to_hex_convert(negative_dec_to_bin_convert(float(iter)))))
+        data_sum_coverted += float(neg_hex_to_decimal_convert(bin_to_hex_convert(negative_dec_to_bin_convert(float(iter)))))
     else:
-        data_sum += float(positive_hex_to_dec_convert(bin_to_hex_convert(positive_dec_to_bin_convert(float(iter)))))
+        data_sum_coverted += float(positive_hex_to_dec_convert(bin_to_hex_convert(positive_dec_to_bin_convert(float(iter)))))
 finish_time = datetime.now() - start_time
-print(str(data_sum))
+for iter in data_list:
+    data_sum += float(iter)
+
+print(data_sum)
+print(str(data_sum_coverted))
 print(finish_time)
 
