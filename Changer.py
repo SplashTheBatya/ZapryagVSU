@@ -98,27 +98,28 @@ def negative_dec_to_bin(decimal_number):
     return positive_dec_to_bin_convert(decimal_number)
 
 
-start_time = datetime.now()
-data_file = open('dataTest.txt', 'r')
-data = data_file.read()
-data_list = data.split('\n')
-print(data_list)
-data_sum_coverted = 0
-data_sum = 0
-data_list = [x for x in data_list if x != '']
-for iter in data_list:
-    if iter[0] == '-':
-        data_sum_coverted += float(negative_hex_to_dec_convert((bin_to_hex_convert(negative_dec_to_bin(iter)))))
-    else:
-        data_sum_coverted += float(positive_hex_to_dec_convert(
-            bin_to_hex_convert(positive_dec_to_bin_convert(float(iter)))))
-finish_time = datetime.now() - start_time
-for iter in data_list:
-    data_sum += float(iter)
+if __name__ == '__main__':
+    start_time = datetime.now()
+    data_file = open('dataTest.txt', 'r')
+    data = data_file.read()
+    data_list = data.split('\n')
+    print(data_list)
+    data_sum_coverted = 0
+    data_sum = 0
+    data_list = [x for x in data_list if x != '']
+    for iter in data_list:
+        if iter[0] == '-':
+            data_sum_coverted += float(negative_hex_to_dec_convert((bin_to_hex_convert(negative_dec_to_bin(iter)))))
+        else:
+            data_sum_coverted += float(positive_hex_to_dec_convert(
+                bin_to_hex_convert(positive_dec_to_bin_convert(float(iter)))))
+    finish_time = datetime.now() - start_time
+    for iter in data_list:
+        data_sum += float(iter)
 
 #print(data_sum)
-print(str(data_sum_coverted), str(positive_dec_to_bin_convert(data_sum_coverted)),
-      str(bin_to_hex_convert(positive_dec_to_bin_convert(data_sum_coverted))),
-      str(positive_hex_to_dec_convert(bin_to_hex_convert(positive_dec_to_bin_convert(data_sum_coverted)))))
-print(finish_time)
+    print(str(data_sum_coverted), str(positive_dec_to_bin_convert(data_sum_coverted)),
+            str(bin_to_hex_convert(positive_dec_to_bin_convert(data_sum_coverted))),
+            str(positive_hex_to_dec_convert(bin_to_hex_convert(positive_dec_to_bin_convert(data_sum_coverted)))))
+    print(finish_time)
 
