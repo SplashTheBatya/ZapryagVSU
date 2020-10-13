@@ -3,12 +3,12 @@ import time
 import math
 from textwrap import wrap
 
-hexadecimal_bin_dictionary = {'0000': '0', '0001': '1', '0010': '2', '0011' : '3', '0100': '4', '0101': '5', '0110': '6',
-                          '0111':'7', '1000':'8', '1001': '9', '1010': 'A', '1011': 'B', '1100' : 'C', '1101': 'D',
-                          '1110': 'E', '1111': 'F'}
+hexadecimal_bin_dictionary = {'0000': '0', '0001': '1', '0010': '2', '0011' : '3', '0100': '4', '0101': '5',
+                              '0110': '6', '0111':'7', '1000':'8', '1001': '9', '1010': 'A', '1011': 'B',
+                              '1100': 'C', '1101': 'D', '1110': 'E', '1111': 'F'}
 
-hexadecimal_decimal_dictionary = {'0' : 0, '1' : 1, '2' : 2, '3': 3, '4' : 4, '5' : 5, '6' : 6, '7' : 7,
-                                  '8' : 8,'9': 9,'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E' : 14, 'F': 15}
+hexadecimal_decimal_dictionary = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
+                                  '8': 8, '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15}
 
 
 def positive_dec_to_bin_convert(decimal_number: float):
@@ -91,7 +91,6 @@ def positive_hex_to_dec_convert(hexadecimal_num: str):
     return str(decimal_number_result)
 
 
-
 def negative_dec_to_bin(decimal_number):
     decimal_number = str(decimal_number)[1:]
     decimal_number = float(decimal_number)
@@ -100,22 +99,6 @@ def negative_dec_to_bin(decimal_number):
 
 
 start_time = datetime.now()
-
-# decimal_number_pos = float(input('Input decimal number: + '))
-# decimal_number_neg = float(input('Input decimal number: - '))
-# binary_num = positive_dec_to_bin_convert(decimal_number_pos)
-# hex_num = bin_to_hex_convert(binary_num)
-# dec_result = positive_hex_to_dec_convert(hex_num)
-#
-# neg_bin = negative_dec_to_bin(decimal_number_neg)
-# negative_hex = bin_to_hex_convert(neg_bin)
-# dev_neg_result = negative_hex_to_dec_convert(negative_hex)
-#
-# print(str(binary_num),str(hex_num),str(dec_result))
-# print('-----------------------------------------')
-# print(str(neg_bin), str(negative_hex), str(dev_neg_result))
-# print(datetime.now() - start_time)
-
 data_file = open('dataTest.txt', 'r')
 data = data_file.read()
 data_list = data.split('\n')
@@ -127,12 +110,15 @@ for iter in data_list:
     if iter[0] == '-':
         data_sum_coverted += float(negative_hex_to_dec_convert((bin_to_hex_convert(negative_dec_to_bin(iter)))))
     else:
-        data_sum_coverted += float(positive_hex_to_dec_convert(bin_to_hex_convert(positive_dec_to_bin_convert(float(iter)))))
+        data_sum_coverted += float(positive_hex_to_dec_convert(
+            bin_to_hex_convert(positive_dec_to_bin_convert(float(iter)))))
 finish_time = datetime.now() - start_time
 for iter in data_list:
     data_sum += float(iter)
 
-print(data_sum)
-print(str(data_sum_coverted))
+#print(data_sum)
+print(str(data_sum_coverted), str(positive_dec_to_bin_convert(data_sum_coverted)),
+      str(bin_to_hex_convert(positive_dec_to_bin_convert(data_sum_coverted))),
+      str(positive_hex_to_dec_convert(bin_to_hex_convert(positive_dec_to_bin_convert(data_sum_coverted)))))
 print(finish_time)
 
