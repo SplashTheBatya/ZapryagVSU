@@ -1,5 +1,4 @@
 from textwrap import wrap
-from functools import partial
 
 eight_four_two_one_dict = {'0': '0000', '1': '0001', '2': '0010', '3': '0011', '4': '0100', '5': '0101', '6': '0110',
                            '7': '0111', '8': '1000', '9': '1001', '10': '1010', '11': '1011', '12': '1100', '13': ''}
@@ -168,10 +167,12 @@ def gray_code_to_dec_changer(gray_num: str):
     for iter in bin_num_arr:
         bin_res += iter
 
-
     return bin_to_dec_changer(bin_res)
 
 
+"""
+Словарь соотнощений - аналог блока if else в функции-ядре
+"""
 command_dict = {
         ('dec', 'bin'): dec_to_bin_changer,
         ('dec', 'eight_four_two_one'): dec_to_eight_four_two_one_bcd_changer,
@@ -227,6 +228,12 @@ command_dict = {
 
 
 def special_converter_core_func(input_type: str, output_type: str, input_data: str):
+    """
+    Функция-ядро перевода чисел из систем счисления input_type обозначает систему счисления входного
+    числа в формате строки
+    output_type обозначает выходную систему счисления в формате строки
+    input_data означает входные данные в системе input_type в формате строки
+    """
     condition_list = (input_type, output_type)
     return command_dict[condition_list](input_data)
 
